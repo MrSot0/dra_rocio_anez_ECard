@@ -1,0 +1,79 @@
+---
+import ECard from '../components/ECard.astro';
+import '../styles/global.css';
+
+// Importa tu icono directamente
+import dienteIcon from '../assets/diente.svg?raw';
+---
+
+<html lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<title>Dra. Rocío Añez | Odontopediatra</title>
+	</head>
+    <body class="bg-[#99FED6] min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+
+        <!-- FONDO CON DIENTES FLOTANDO -->
+        <div class="absolute inset-0 pointer-events-none z-0 opacity-20 text-teal-800">
+            <div class="tooth float-slow absolute top-[8%] left-[12%] w-10 rotate-[-12deg]"><Fragment set:html={dienteIcon} /></div>
+            <div class="tooth float-medium absolute top-[15%] left-[35%] w-8 rotate-[22deg]"><Fragment set:html={dienteIcon} /></div>
+            <div class="tooth float-fast absolute top-[6%] right-[10%] w-12 rotate-[12deg]"><Fragment set:html={dienteIcon} /></div>
+            <div class="tooth float-slow absolute top-[22%] right-[30%] w-9 rotate-[-30deg]"><Fragment set:html={dienteIcon} /></div>
+
+            <div class="tooth float-medium absolute top-[38%] left-[5%] w-8 rotate-[20deg]"><Fragment set:html={dienteIcon} /></div>
+            <div class="tooth float-fast absolute top-[45%] left-[22%] w-7 rotate-[-15deg]"><Fragment set:html={dienteIcon} /></div>
+            <div class="tooth float-slow absolute top-[42%] right-[8%] w-11 rotate-[35deg]"><Fragment set:html={dienteIcon} /></div>
+            <div class="tooth float-medium absolute top-[50%] right-[25%] w-9 rotate-[-8deg]"><Fragment set:html={dienteIcon} /></div>
+
+            <div class="tooth float-fast absolute top-[68%] left-[8%] w-10 rotate-[45deg]"><Fragment set:html={dienteIcon} /></div>
+            <div class="tooth float-slow absolute top-[75%] left-[28%] w-8 rotate-[-20deg]"><Fragment set:html={dienteIcon} /></div>
+            <div class="tooth float-medium absolute top-[62%] right-[18%] w-9 rotate-[-25deg]"><Fragment set:html={dienteIcon} /></div>
+            <div class="tooth float-fast absolute top-[72%] right-[38%] w-11 rotate-[-8deg]"><Fragment set:html={dienteIcon} /></div>
+
+            <div class="tooth float-slow absolute top-[88%] left-[15%] w-9 rotate-[15deg]"><Fragment set:html={dienteIcon} /></div>
+            <div class="tooth float-medium absolute top-[92%] left-[42%] w-7 rotate-[-35deg]"><Fragment set:html={dienteIcon} /></div>
+            <div class="tooth float-fast absolute top-[85%] right-[12%] w-10 rotate-[28deg]"><Fragment set:html={dienteIcon} /></div>
+            <div class="tooth float-slow absolute top-[90%] right-[35%] w-8 rotate-[-10deg]"><Fragment set:html={dienteIcon} /></div>
+        </div>
+
+        <!-- TARJETA -->
+        <div class="relative z-10">
+            <ECard 
+                name="Dra. Rocío Añez"
+                role="Odontopediatra / Ortodoncista Maxilar"
+                instagram="@odontochikitos"
+                whatsapp="+584121282024"
+                facebook="facebook.com/rocio.anez.3"
+                avatarUrl="https://i.ibb.co/DPPy3P0F/rocioanez.webp"
+                headerBgUrl="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&h=400&fit=crop"
+            />
+        </div>
+    </body>
+</html>
+
+<style>
+    .tooth svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+
+    @keyframes float-slow {
+        0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+        50% { transform: translateY(-14px) translateX(6px) rotate(6deg); }
+    }
+    @keyframes float-medium {
+        0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+        50% { transform: translateY(10px) translateX(-8px) rotate(-8deg); }
+    }
+    @keyframes float-fast {
+        0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+        50% { transform: translateY(-8px) translateX(4px) rotate(4deg); }
+    }
+
+    .float-slow { animation: float-slow 6s ease-in-out infinite; }
+    .float-medium { animation: float-medium 4.5s ease-in-out infinite; }
+    .float-fast { animation: float-fast 3.5s ease-in-out infinite; }
+</style>

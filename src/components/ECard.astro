@@ -1,0 +1,257 @@
+---
+interface Props {
+  name: string;
+  role: string;
+  instagram: string;
+  whatsapp: string;
+  facebook: string;
+  avatarUrl: string;
+  headerBgUrl: string;
+}
+
+const { 
+  name, 
+  role, 
+  instagram, 
+  whatsapp, 
+  facebook, 
+  avatarUrl,
+  headerBgUrl
+} = Astro.props;
+
+const instagramHandle = instagram.replace('@', '');
+const whatsappLink = `https://wa.me/${whatsapp.replace(/\D/g, '')}`;
+const facebookLink = facebook.startsWith('http') ? facebook : `https://${facebook}`;
+---
+
+<!-- Contenedor Principal de la Tarjeta -->
+<div class="ecard-font w-full max-w-md mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 my-10 relative">
+
+  <!-- 1. CABECERA CON FOTO DE FONDO -->
+  <div class="relative h-44 bg-slate-300">
+    <img 
+      src={headerBgUrl} 
+      alt="" 
+      class="absolute inset-0 w-full h-full object-cover"
+    />
+    <div class="absolute inset-0 bg-slate-900/40"></div>
+
+    <!-- Divisor SVG tipo "Corona de Diente" -->
+    <div class="absolute -bottom-1 left-0 w-full overflow-hidden leading-none z-10">
+      <svg 
+        class="relative block w-full h-14" 
+        xmlns="http://www.w3.org/2000/svg" 
+        viewBox="0 0 1440 100" 
+        preserveAspectRatio="none"
+      >
+        <path 
+          fill="#ffffff" 
+          d="M0,60 
+             C120,48 220,38 380,42 
+             C480,45 500,60 560,66 
+             C640,72 680,74 720,74 
+             C760,74 800,72 880,66 
+             C940,60 960,45 1060,42 
+             C1220,38 1320,48 1440,60 
+             L1440,100 L0,100 Z"
+        ></path>
+      </svg>
+    </div>
+  </div>
+
+  <!-- 2. FOTO DE PERFIL -->
+  <div class="relative z-20 px-6 -mt-20 flex justify-center">
+    <img 
+      src={avatarUrl} 
+      alt="" 
+      class="w-36 h-36 rounded-full object-cover border-4 border-white shadow-xl bg-slate-100"
+    />
+  </div>
+
+  <!-- 3. CUERPO DE LA TARJETA -->
+  <div class="px-8 pt-2 pb-8 text-center">
+    
+    <!-- Nombre y Rol -->
+    <div class="mt-2">
+      <h1 class="text-2xl font-bold text-slate-900 tracking-tight">{name}</h1>
+      <p class="text-xs font-semibold text-teal-600 mt-1 uppercase tracking-wider">{role}</p>
+    </div>
+
+    <!-- BOTONES REDONDOS CON TEXTO ABAJO -->
+    <div class="mt-7 grid grid-cols-3 gap-4">
+      
+      <!-- WhatsApp -->
+      <a 
+        href={whatsappLink} 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="group flex flex-col items-center gap-2"
+      >
+        <span class="flex items-center justify-center w-16 h-16 rounded-full bg-[#25D366] text-white shadow-md shadow-green-500/25 transition-transform duration-200 group-active:scale-95 group-hover:scale-105">
+          <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.297-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.206-.242-.579-.487-.501-.669-.51l-.572-.01c-.197 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.41 0 .005 5.405.005 12.045c0 2.092.548 4.134 1.588 5.945L0 24l6.105-1.621a11.795 11.795 0 005.614 1.425h.004c6.64 0 12.045-5.405 12.045-12.046 0-3.223-1.256-6.253-3.536-8.533"/>
+          </svg>
+        </span>
+        <span class="text-xs font-semibold text-slate-700">WhatsApp</span>
+      </a>
+
+      <!-- Instagram -->
+      <a 
+        href={`https://instagram.com/${instagramHandle}`} 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="group flex flex-col items-center gap-2"
+      >
+        <span class="flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-[#833AB4] via-[#C13584] to-[#E1306C] text-white shadow-md shadow-pink-500/25 transition-transform duration-200 group-active:scale-95 group-hover:scale-105">
+          <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.172.054 1.808.242 2.234.406.563.217.964.477 1.385.898.42.421.68.822.898 1.385.164.426.352 1.062.407 2.234.059 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.054 1.172-.242 1.808-.406 2.234-.217.563-.477.964-.898 1.385-.421.42-.822.68-1.385.898-.426.164-1.062.352-2.234.407-1.266.059-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.172-.054-1.808-.242-2.234-.406a2.144 2.144 0 0 1-1.385-.898c-.42-.421-.68-.822-.898-1.385-.164-.426-.352-1.062-.407-2.234-.059-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c-.054-1.172.242-1.808.406-2.234.217-.563.477-.964.898-1.385.421-.42.822-.68 1.385-.898.426-.164 1.062-.352 2.234-.407 1.266-.059 1.646-.07 4.85-.07Zm0-2.163c-3.259 0-3.667.014-4.947.072-1.277.058-2.15.248-2.913.542-.79.307-1.457.72-2.124 1.387-.668.667-1.08 1.334-1.388 2.124-.294.763-.483 1.636-.542 2.913C.014 8.333 0 8.741 0 12c0 3.259.014 3.667.072 4.947.058 1.277.248 2.15.542 2.913.307.79.72 1.457 1.387 2.124.667.668 1.334 1.08 2.124 1.388.763.294 1.636.483 2.913.542C8.333 23.986 8.741 24 12 24c3.259 0 3.667-.014 4.947-.072 1.277-.058 2.15-.248 2.913-.542.79-.307 1.457-.72 2.124-1.387.668-.667 1.08-1.334 1.388-2.124.294-.763.483-1.636.542-2.913.058-1.277.072-1.685.072-4.947s-.014-3.667-.072-4.947c-.058-1.277-.248-2.15-.542-2.913-.307-.79-.72-1.457-1.387-2.124C21.07 1.457 20.403 1.044 19.613.737c-.763-.294-1.636-.483-2.913-.542C15.667.014 15.259 0 12 0Zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324Zm0 10.162a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.406-11.845a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88Z"/>
+          </svg>
+        </span>
+        <span class="text-xs font-semibold text-slate-700">Instagram</span>
+      </a>
+
+      <!-- Facebook -->
+      <a 
+        href={facebookLink} 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="group flex flex-col items-center gap-2"
+      >
+        <span class="flex items-center justify-center w-16 h-16 rounded-full bg-[#1877F2] text-white shadow-md shadow-blue-500/25 transition-transform duration-200 group-active:scale-95 group-hover:scale-105">
+          <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+        </span>
+        <span class="text-xs font-semibold text-slate-700">Facebook</span>
+      </a>
+
+    </div>
+
+    <!-- FILA INFERIOR: Compartir + Código QR -->
+    <div class="mt-7 pt-5 border-t border-slate-100 grid grid-cols-2 gap-4 max-w-[240px] mx-auto">
+      
+      <!-- Compartir -->
+      <button 
+        id="share-btn"
+        class="group flex flex-col items-center gap-2 cursor-pointer"
+      >
+        <span class="flex items-center justify-center w-14 h-14 rounded-full bg-slate-100 text-slate-600 transition-transform duration-200 group-active:scale-95 group-hover:scale-105">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path>
+          </svg>
+        </span>
+        <span class="text-xs font-semibold text-slate-600">Compartir</span>
+      </button>
+
+      <!-- Código QR -->
+      <button 
+        id="qr-btn"
+        class="group flex flex-col items-center gap-2 cursor-pointer"
+      >
+        <span class="flex items-center justify-center w-14 h-14 rounded-full bg-slate-100 text-slate-600 transition-transform duration-200 group-active:scale-95 group-hover:scale-105">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.5h5.25v5.25H3.75V4.5Zm0 9.75h5.25v5.25H3.75v-5.25Zm9.75-9.75h5.25v5.25h-5.25V4.5ZM15 15h1.5v1.5H15V15Zm2.25 2.25h1.5v1.5h-1.5v-1.5ZM15 19.5h1.5V21H15v-1.5Zm3.75-2.25h1.5v1.5h-1.5v-1.5Zm0-4.5h-3v1.5m3 0v1.5"></path>
+          </svg>
+        </span>
+        <span class="text-xs font-semibold text-slate-600">Código QR</span>
+      </button>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL DE CÓDIGO QR -->
+<div id="qr-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+  <div class="ecard-font bg-white rounded-3xl shadow-2xl p-6 w-full max-w-xs text-center relative">
+    <button 
+      id="qr-close-btn" 
+      class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 transition-colors"
+      aria-label="Cerrar"
+    >
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    <h2 class="text-lg font-bold text-slate-900 mt-2">Escanea para ver la tarjeta</h2>
+    <p class="text-xs text-slate-500 mt-1 mb-4">Apunta la cámara de tu celular al código</p>
+
+    <div class="flex justify-center">
+      <img 
+        id="qr-image" 
+        src="" 
+        alt="Código QR de la tarjeta" 
+        class="w-48 h-48 rounded-2xl border border-slate-100 bg-white p-2"
+      />
+    </div>
+
+    <a 
+      id="qr-download-btn"
+      download="tarjeta-qr.png"
+      class="mt-5 inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-teal-600 hover:bg-teal-700 text-white font-semibold text-sm rounded-xl transition-colors duration-200 active:scale-[0.98]"
+    >
+      Descargar QR
+    </a>
+  </div>
+</div>
+
+<!-- Script del cliente -->
+<script>
+  // Compartir Tarjeta (Web Share API)
+  const shareBtn = document.getElementById('share-btn');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', async () => {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            text: '¡Conoce la tarjeta profesional de la Dra. Rocío Añez!',
+            url: window.location.href,
+          });
+        } catch (err) {
+          console.log('Error al compartir:', err);
+        }
+      } else {
+        navigator.clipboard.writeText(window.location.href);
+        alert('¡Enlace copiado al portapapeles!');
+      }
+    });
+  }
+
+  // Modal de Código QR
+  const qrBtn = document.getElementById('qr-btn');
+  const qrModal = document.getElementById('qr-modal');
+  const qrCloseBtn = document.getElementById('qr-close-btn');
+  const qrImage = document.getElementById('qr-image') as HTMLImageElement | null;
+  const qrDownloadBtn = document.getElementById('qr-download-btn') as HTMLAnchorElement | null;
+
+  function openQrModal() {
+    const currentUrl = window.location.href;
+    const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&margin=10&data=${encodeURIComponent(currentUrl)}`;
+    
+    if (qrImage) qrImage.src = qrApiUrl;
+    if (qrDownloadBtn) qrDownloadBtn.href = qrApiUrl;
+
+    qrModal?.classList.remove('hidden');
+    qrModal?.classList.add('flex');
+  }
+
+  function closeQrModal() {
+    qrModal?.classList.add('hidden');
+    qrModal?.classList.remove('flex');
+  }
+
+  qrBtn?.addEventListener('click', openQrModal);
+  qrCloseBtn?.addEventListener('click', closeQrModal);
+  qrModal?.addEventListener('click', (e) => {
+    if (e.target === qrModal) closeQrModal();
+  });
+</script>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700;800&display=swap');
+  .ecard-font {
+    font-family: 'Quicksand', system-ui, sans-serif;
+  }
+</style>
